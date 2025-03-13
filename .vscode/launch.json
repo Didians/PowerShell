@@ -1,49 +1,106 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-      {
-        "type": "amiga",
-        "request": "launch",
-        "name": "Ask for file name",
-        "config": "A500",
-        "program": "",
-        "kickstart": "<Enter path to KICKSTART 1.3 ROM here>"
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Python Debugger: Current File with Arguments",
+      "type": "debugpy",
+      "request": "launch",
+      "program": "${file}",
+      "console": "integratedTerminal",
+      "args": "${command:pickArgs}"
+    },
+    {
+      "type": "amiga",
+      "request": "launch",
+      "name": "Ask for file name",
+      "config": "A500",
+      "program": "",
+      "kickstart": "<Enter path to KICKSTART 1.3 ROM here>"
+    },
+    {
+      "type": "aws-sam",
+      "request": "direct-invoke",
+      "name": "Invoke Lambda with API Gateway",
+      "invokeTarget": {
+        "target": "api",
+        "templatePath": "Template Location",
+        "logicalId": "Function Logical ID"
       },
-        {
-            "name": ".NET Core Launch",
-            "type": "coreclr",
-            "request": "launch",
-            "justMyCode": false,
-            "stopAtEntry": true,
-            "program": "${workspaceRoot}/debug/pwsh",
-            "preLaunchTask": "Build",
-            "externalConsole": true,
-            "cwd": "${workspaceRoot}"
-        },
-        {
-            "name": ".NET Core Attach",
-            "type": "coreclr",
-            "request": "attach",
-            "justMyCode": false,
-            "processId": "${command:pickProcess}"
-        },
-        {
-            "type": "PowerShell",
-            "request": "launch",
-            "name": "PowerShell Launch Current File",
-            "script": "${file}",
-            "args": [],
-            "cwd": "${file}"
-        },
-        {
-            "type": "PowerShell",
-            "request": "launch",
-            "name": "PowerShell Launch Current File w/Args Prompt",
-            "script": "${file}",
-            "args": [
-                "${command:SpecifyScriptArgs}"
-            ],
-            "cwd": "${file}"
+      "api": {
+        "path": "Path",
+        "httpMethod": "Method",
+        "payload": {
+          "json": {}
         }
-    ]
+      }
+    },
+    {
+      "name": "(gdb) Attach",
+      "type": "cppdbg",
+      "request": "attach",
+      "program": "enter program name, for example ${workspaceFolder}/a.exe",
+      "MIMode": "gdb",
+      "miDebuggerPath": "/path/to/gdb",
+      "setupCommands": [
+        {
+          "description": "Enable pretty-printing for gdb",
+          "text": "-enable-pretty-printing",
+          "ignoreFailures": true
+        },
+        {
+          "description": "Set Disassembly Flavor to Intel",
+          "text": "-gdb-set disassembly-flavor intel",
+          "ignoreFailures": true
+        }
+      ]
+    }
+
+
+
+
+      {
+      "type": "amiga",
+      "request": "launch",
+      "name": "Ask for file name",
+      "config": "A500",
+      "program": "",
+      "kickstart": "<Enter path to KICKSTART 1.3 ROM here>"
+    },
+    {
+      "name": ".NET Core Launch",
+      "type": "coreclr",
+      "request": "launch",
+      "justMyCode": false,
+      "stopAtEntry": true,
+      "program": "${workspaceRoot}/debug/pwsh",
+      "preLaunchTask": "Build",
+      "externalConsole": true,
+      "cwd": "${workspaceRoot}"
+    },
+    {
+      "name": ".NET Core Attach",
+      "type": "coreclr",
+      "request": "attach",
+      "justMyCode": false,
+      "processId": "${command:pickProcess}"
+    },
+    {
+      "type": "PowerShell",
+      "request": "launch",
+      "name": "PowerShell Launch Current File",
+      "script": "${file}",
+      "args": [],
+      "cwd": "${file}"
+    },
+    {
+      "type": "PowerShell",
+      "request": "launch",
+      "name": "PowerShell Launch Current File w/Args Prompt",
+      "script": "${file}",
+      "args": [
+        "${command:SpecifyScriptArgs}"
+      ],
+      "cwd": "${file}"
+    }
+  ]
 }
